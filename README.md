@@ -2,6 +2,8 @@
 
 Instantly rewrite selected text using AI, right from Raycast. Works across all macOS apps — Slack, Gmail, editors, Linear, and more.
 
+![Rewrite This](metadata/texttune-1.png)
+
 ## How It Works
 
 1. Select any text in any app
@@ -20,8 +22,8 @@ Instantly rewrite selected text using AI, right from Raycast. Works across all m
 
 ## Setup
 
-1. Install the extension
-2. Open Raycast → search **"TextTune Settings"**
+1. Install the extension from the [Raycast Store](https://www.raycast.com/deepak_singh/texttune)
+2. Open Raycast and search **"TextTune Settings"**
 3. Choose your AI provider and enter your API key
 4. Assign a hotkey to **"Rewrite This"** in Raycast Preferences → Extensions → TextTune
 
@@ -52,3 +54,13 @@ Instantly rewrite selected text using AI, right from Raycast. Works across all m
 - No text is logged, cached, or sent anywhere else
 - API keys are redacted from error messages
 - Use **Ollama** for fully local, private rewrites with zero data leaving your machine
+
+## Contributing
+
+1. Clone the repo
+2. Run `npm install && npm run dev`
+3. Make changes — Raycast hot-reloads automatically
+
+## License
+
+MIT
