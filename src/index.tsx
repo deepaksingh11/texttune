@@ -14,13 +14,6 @@ import {
 import { rewriteText, type RewriteOptions } from "./providers";
 import { TONE_LABELS } from "./tones";
 
-interface Preferences {
-  provider: string;
-  apiKey: string;
-  model: string;
-  tone: string;
-}
-
 const MAX_TEXT_LENGTH = 20000;
 
 export default function Command() {
@@ -42,7 +35,7 @@ export default function Command() {
       setRewrittenText("");
 
       try {
-        const preferences = getPreferenceValues<Preferences>();
+        const preferences = getPreferenceValues<ExtensionPreferences>();
         let text: string;
 
         if (sourceText === undefined) {

@@ -29,10 +29,7 @@ const PROVIDERS = [
 ];
 
 export default function ChangeProvider() {
-  const preferences = getPreferenceValues<{
-    provider: string;
-    model: string;
-  }>();
+  const preferences = getPreferenceValues<ExtensionPreferences>();
 
   return (
     <List navigationTitle="Change AI Provider">
