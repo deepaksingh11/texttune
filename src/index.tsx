@@ -18,9 +18,10 @@ interface Preferences {
   provider: string;
   apiKey: string;
   model: string;
-  customApiUrl: string;
   tone: string;
 }
+
+const MAX_TEXT_LENGTH = 20000;
 
 export default function Command() {
   const [originalText, setOriginalText] = useState("");
@@ -29,7 +30,6 @@ export default function Command() {
   const [error, setError] = useState<string | null>(null);
   const [currentTone, setCurrentTone] = useState("");
   const abortRef = useRef<AbortController | null>(null);
-  const preferences = getPreferenceValues<Preferences>();
 
   const performRewrite = useCallback(
     async (tone?: string, sourceText?: string) => {
@@ -42,21 +42,30 @@ export default function Command() {
       setRewrittenText("");
 
       try {
-        let text = sourceText ?? "";
+        const preferences = getPreferenceValues<Preferences>();
+        let text: string;
 
-        if (!text) {
+        if (sourceText === undefined) {
           text = await getSelectedText();
           setOriginalText(text);
+        } else {
+          text = sourceText;
         }
 
         if (!text.trim()) {
           throw new Error("No text selected.");
         }
 
+        if (text.length > MAX_TEXT_LENGTH) {
+          throw new Error(
+            `Selected text is too long (${text.length} chars). Max ~${MAX_TEXT_LENGTH} characters.`,
+          );
+        }
+
         const activeTone = tone || preferences.tone || "professional";
         setCurrentTone(activeTone);
 
-        if (preferences.provider !== "ollama" && !preferences.apiKey) {
+        if (!preferences.apiKey) {
           throw new Error(
             "API key not configured. Press Enter to open preferences.",
           );
@@ -68,7 +77,6 @@ export default function Command() {
           provider: preferences.provider,
           apiKey: preferences.apiKey,
           model: preferences.model,
-          customApiUrl: preferences.customApiUrl,
         };
 
         const result = await rewriteText(options, controller.signal);
@@ -85,7 +93,7 @@ export default function Command() {
         }
       }
     },
-    [preferences],
+    [],
   );
 
   useEffect(() => {

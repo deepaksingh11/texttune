@@ -26,18 +26,6 @@ const PROVIDERS = [
     description: "Llama models, free tier available",
     defaultModel: "llama-3.3-70b-versatile",
   },
-  {
-    key: "ollama",
-    title: "Ollama (Local)",
-    description: "Fully private, runs locally, no API key",
-    defaultModel: "llama3.2",
-  },
-  {
-    key: "openai-compatible",
-    title: "OpenAI Compatible",
-    description: "OpenRouter, Together.ai, or any custom endpoint",
-    defaultModel: "gpt-4o-mini",
-  },
 ];
 
 export default function ChangeProvider() {
